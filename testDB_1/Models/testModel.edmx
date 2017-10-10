@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="doctorId" />
+          </Key>
+          <Property Name="doctorId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="special" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="special">
+          <Key>
+            <PropertyRef Name="special" />
+          </Key>
+          <Property Name="special" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="userInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="name " Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="telnum" Type="int" />
+          <Property Name="docId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Doctor_ToTable">
+          <End Role="special" Type="Self.special" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="special">
+              <PropertyRef Name="special" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="special" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userInfo_ToTable">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="userInfo">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userInfo_ToTable_1">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctorId" />
+            </Principal>
+            <Dependent Role="userInfo">
+              <PropertyRef Name="docId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="special" EntityType="Self.special" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Doctor_ToTable" Association="Self.FK_Doctor_ToTable">
+            <End Role="special" EntitySet="special" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userInfo_ToTable" Association="Self.FK_userInfo_ToTable">
+            <End Role="User" EntitySet="User" />
+            <End Role="userInfo" EntitySet="userInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userInfo_ToTable_1" Association="Self.FK_userInfo_ToTable_1">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="userInfo" EntitySet="userInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="doctorId" />
+          </Key>
+          <Property Name="doctorId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="special" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="special1" Relationship="Self.FK_Doctor_ToTable" FromRole="Doctor" ToRole="special" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK_userInfo_ToTable_1" FromRole="Doctor" ToRole="userInfo" />
+        </EntityType>
+        <EntityType Name="special">
+          <Key>
+            <PropertyRef Name="special1" />
+          </Key>
+          <Property Name="special1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Doctor_ToTable" FromRole="special" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK_userInfo_ToTable" FromRole="User" ToRole="userInfo" />
+        </EntityType>
+        <EntityType Name="userInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="name_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telnum" Type="Int32" />
+          <Property Name="docId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_userInfo_ToTable_1" FromRole="userInfo" ToRole="Doctor" />
+          <NavigationProperty Name="User" Relationship="Self.FK_userInfo_ToTable" FromRole="userInfo" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Doctor_ToTable">
+          <End Role="special" Type="Self.special" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="special">
+              <PropertyRef Name="special1" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="special" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userInfo_ToTable_1">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctorId" />
+            </Principal>
+            <Dependent Role="userInfo">
+              <PropertyRef Name="docId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userInfo_ToTable">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="userInfo">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+          <EntitySet Name="special" EntityType="Self.special" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="userInfo" EntityType="Self.userInfo" />
+          <AssociationSet Name="FK_Doctor_ToTable" Association="Self.FK_Doctor_ToTable">
+            <End Role="special" EntitySet="special" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userInfo_ToTable_1" Association="Self.FK_userInfo_ToTable_1">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="userInfo" EntitySet="userInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userInfo_ToTable" Association="Self.FK_userInfo_ToTable">
+            <End Role="User" EntitySet="User" />
+            <End Role="userInfo" EntitySet="userInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities2">
+          <EntitySetMapping Name="Doctor">
+            <EntityTypeMapping TypeName="dbModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="doctorId" ColumnName="doctorId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="special" ColumnName="special" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="special">
+            <EntityTypeMapping TypeName="dbModel.special">
+              <MappingFragment StoreEntitySet="special">
+                <ScalarProperty Name="special1" ColumnName="special" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="dbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userInfo">
+            <EntityTypeMapping TypeName="dbModel.userInfo">
+              <MappingFragment StoreEntitySet="userInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="name_" ColumnName="name " />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="telnum" ColumnName="telnum" />
+                <ScalarProperty Name="docId" ColumnName="docId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
