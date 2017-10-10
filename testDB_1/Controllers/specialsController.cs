@@ -41,8 +41,8 @@ namespace testDB_1.Controllers
         {
             return View();
         }
+
         //test
-        //test2
 
         // POST: specials/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
