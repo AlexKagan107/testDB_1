@@ -1,33 +1,30 @@
-﻿<html lang="en">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Hold 'Q' to begin speech recognition</title>
-    <style>
-        body {
-            font-family: monospace;
-            font-size: 22px;
-            background-color: whitesmoke;
-            -webkit-transition: background-color 400ms ease;
-            transition: background-color 400ms ease;
-        }
+  <meta charset="UTF-8">
+  <title>Hold 'Q' to begin speech recognition</title>
+  <style>
+    body {
+      font-family: monospace;
+      font-size: 22px;
+      background-color: whitesmoke;
+      -webkit-transition: background-color 400ms ease;
+      transition: background-color 400ms ease;
+    }
 
-        main {
-            background-color: rgba(255, 255, 255, 0.4);
-            padding: 20px;
-            display: inline-block;
-        }
-    </style>
-    @*<a href="~/Scripts/app.json">~/Scripts/app.json</a>
-    <a href="~/Scripts/package.json">~/Scripts/package.json</a>*@
-    <script src="~/Scripts/app.js"></script>
+    main {
+      background-color: rgba(255, 255, 255, 0.4);
+      padding: 20px;
+      display: inline-block;
+    }
+  </style>
 </head>
-<body>
+  <body>
     <main>
-        <span id="speech"></span>
-        <span id="interim"></span>
+      <span id="speech"></span>
+      <span id="interim"></span>
     </main>
-</body>
-<script>
+  </body>
+  <script>
 
     function upgrade() {
       alert('Please upgrade to Google Chrome for best possible experience.');
@@ -113,7 +110,7 @@
 
         speech.onerror = function(event) {
             // When recognition fails or error occurs
-            console.error(event.error);
+            console.error(event.error); 
         };
 
         speech.onend = function() {
@@ -124,5 +121,5 @@
 
       }
     };
-</script>
+  </script>
 </html>
