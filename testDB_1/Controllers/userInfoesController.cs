@@ -98,7 +98,11 @@ namespace testDB_1.Controllers
             ViewBag.userId = new SelectList(db.User, "userId", "password", userInfo.userId);
             return View(userInfo);
         }
-
+        /// <summary>
+        //1223
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: userInfoes/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
